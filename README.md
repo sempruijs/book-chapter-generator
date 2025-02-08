@@ -1,4 +1,4 @@
-# book chapter generator
+# book notes generator
 
 When you want to write notes for book chapters in Obsidian, it can be painful to create a lot of files.
 Let say you want to write you thoughts on the book of Psalms in the bible.
@@ -31,7 +31,7 @@ Note that you can customise this however you want. It **should contain a heading
 2. nix run 😎
 
 ```shell
-nix run github:sempruijs/book-chapter-generator
+nix run github:sempruijs/book-notes-generator
 ```
 
 Enter the file name a whola! You have 150 files with correct numbers in the headings.
