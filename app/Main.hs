@@ -10,8 +10,7 @@ main = do
   putStr "Enter file name: "
   hFlush stdout
   fileName <- getLine
-  fileHandle <- openFile fileName ReadWriteMode
-  content <- hGetContents fileHandle
+  content <- readFile fileName
   putStrLn $ "Creating files based on " ++ fileName ++ ": " ++ content
   applyRequest $ parseRequest fileName content
   putStrLn "done"
