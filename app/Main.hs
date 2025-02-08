@@ -50,7 +50,7 @@ parseRequest name content =
             beforeHeadingContent = head $ splitOn line content
             afterHeadingContent = unwords $ tail $ splitOn line content
             newLine = (unwords $ init $ words line) ++ " " ++ show i
-         in trace (newLine) beforeHeadingContent ++ newLine ++ afterHeadingContent
+         in beforeHeadingContent ++ newLine ++ afterHeadingContent
    in Request
         { amount = amount,
           fileName = fileName,
