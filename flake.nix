@@ -1,4 +1,6 @@
 {
+  description = "a book notes generator written in Haskell";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -52,7 +54,7 @@
         };
 
         # haskell-flake doesn't set the default package, but you can do it here.
-        packages.default = self'.packages.example;
+        packages.default = self'.packages.book-notes-generator;
       };
     };
 }
