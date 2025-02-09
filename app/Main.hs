@@ -3,14 +3,19 @@ module Main (main) where
 import Data.List.Split (splitOn)
 import Data.Maybe (listToMaybe)
 import Debug.Trace
+import System.Environment (getArgs)
 import System.IO
 
 main :: IO ()
 main = do
-  putStr "Enter file name: "
-  hFlush stdout
-  fileName <- getLine
-  content <- readFile fileName
+  args <- getArgs
+  fileName <- case args of
+    (arg : _) -> return arg
+    [] -> do
+      putStr "Enter file name: "
+      hFlush stdout
+      getLine
+  content <- trace fileName readFile fileName
   putStrLn $ "Creating files based on " ++ fileName ++ ": " ++ content
   applyRequest $ parseRequest fileName content
   putStrLn "done"
