@@ -9,16 +9,29 @@ import System.IO
 main :: IO ()
 main = do
   args <- getArgs
-  fileName <- case args of
-    (arg : _) -> return arg
-    [] -> do
-      putStr "Enter file name: "
-      hFlush stdout
-      getLine
-  content <- trace fileName readFile fileName
-  putStrLn $ "Creating files based on " ++ fileName ++ ": " ++ content
-  applyRequest $ parseRequest fileName content
-  putStrLn "done"
+  if "--help" `elem` args || "-h" `elem` args
+    then printHelp
+    else do
+      fileName <- case args of
+        (arg : _) -> return arg
+        [] -> do
+          putStr "Enter file name: "
+          hFlush stdout
+          getLine
+      content <- trace fileName readFile fileName
+      putStrLn $ "Creating files based on " ++ fileName ++ ": " ++ content
+      applyRequest $ parseRequest fileName content
+      putStrLn "done"
+
+printHelp :: IO ()
+printHelp = do
+  putStrLn "Usage: book-notes-generator [OPTIONS] [FILE]"
+  putStrLn ""
+  putStrLn "Options:"
+  putStrLn "  -h, --help    Show this help message and exit"
+  putStrLn ""
+  putStrLn "Arguments:"
+  putStrLn "  FILE          The path to the file to process. If not provided, you will be prompted to enter the file name."
 
 data Request = Request
   { amount :: Int,
