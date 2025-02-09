@@ -6,6 +6,8 @@ import Debug.Trace
 import System.Environment (getArgs)
 import System.IO
 
+-- | The main entry point of the program.
+-- It processes command line arguments and either displays help or processes the given file.
 main :: IO ()
 main = do
   args <- getArgs
@@ -23,6 +25,7 @@ main = do
       applyRequest $ parseRequest fileName content
       putStrLn "done"
 
+-- | Prints the help message with usage information.
 printHelp :: IO ()
 printHelp = do
   putStrLn "Usage: book-notes-generator [OPTIONS] [FILE]"
@@ -33,12 +36,17 @@ printHelp = do
   putStrLn "Arguments:"
   putStrLn "  FILE          The path to the file to process. If not provided, you will be prompted to enter the file name."
 
+-- | Data type representing a request to generate files.
 data Request = Request
-  { amount :: Int,
+  { -- | The number of files to generate.
+    amount :: Int,
+    -- | Function to generate the content of each file.
     fileContent :: Int -> String,
+    -- | Function to generate the name of each file.
     fileName :: Int -> String
   }
 
+-- | Applies the request by generating the specified number of files with the given content and names.
 applyRequest :: Request -> IO ()
 applyRequest r =
   sequence_ $
@@ -54,6 +62,8 @@ type FileName = String
 
 type FileContent = String
 
+-- | Parses the request from the given file name and content.
+-- It determines the number of files to generate, and the functions to generate file names and content.
 parseRequest :: FileName -> FileContent -> Request
 parseRequest name content =
   let amount = read $ last $ words $ head $ splitOn "." name
